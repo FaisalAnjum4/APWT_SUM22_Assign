@@ -20,19 +20,14 @@ class CustomerController extends Controller
         $this->validate($req,
             [
                 "name"=>"required|regex:/^([A-Z .-])+$/i",
-                "email"=>"required|regex:/^([0-9]{2}-[0-9]{5}-[0-3]{1}@student.aiub.edu)+$/i",
-                "password"=>"required|min:8",
-                "conf_password"=>"required|min:8|same:password"
+                "email"=>"required",
+                'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
+                "conf_password"=>"required|min:8|same:password",
             ],
             [
                 "name.required"=>"Please provide your name",
                 "name.regex"=>"Only alphabetic",
-                "email.regex"=>"email format must xx-xxxxx-xx@student.aiub.edu",
-                "password.regex"=>"must be 8 characters"
-               
-
-
-                
+                "password.regex"=>"Password minimum 8 characters, contains a uppercase, a lowercase, a number & a special character"
             ]);
             $ur = new alluser();
             $ur->name = $req->name;
@@ -52,12 +47,12 @@ class CustomerController extends Controller
         $this->validate($req,
             [
         
-                "email"=>"required|regex:/^([0-9]{2}-[0-9]{5}-[0-3]{1}@student.aiub.edu)+$/i",
-                "password"=>"required|min:8",
+                "email"=>"required",
+                'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
                  
             ],
             [
-                "email.regex"=>"email format must xx-xxxxx-xx@student.aiub.edu",
+                "password.regex"=>"Password minimum 8 characters, contains a uppercase, a lowercase, a number & a special character",
    
             ]);
         $users= alluser::where('email','=',$req->email)
